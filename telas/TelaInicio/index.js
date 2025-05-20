@@ -6,7 +6,7 @@ import { validarResposta, gerarNumero } from "./funcoes";
 import estilo from './estilo';
 import fundo from '../../assets/fundo.png';
 
-const TelaInicio = () => {
+const TelaInicio = (props) => {
   const [ primeiroNumero, setPrimeiroNumero ] = useState(1);
   const [ segundoNumero, setSegundoNumero ] = useState(1);
   const [ respostaUsuario, setRespostaUsuario ] = useState(0);
@@ -19,16 +19,16 @@ const TelaInicio = () => {
 
   const responder = () => {
     if ( validarResposta(primeiroNumero, segundoNumero, respostaUsuario) ) {
-      alert('A resposta está correta');
+      props.navigation.navigate('RespostaCorreta');
     } else {
-      alert('A resposta está errada');
+      props.navigation.navigate('RespostaIncorreta');
     }
 
     criarQuestao();
   }
 
   const abrirTelaTabuada = () => {
-    alert('Tabuada');
+    props.navigation.navigate('Tabuada');
   }
 
   return (
@@ -67,7 +67,9 @@ const TelaInicio = () => {
           </View>
 
           <View style={estilo.opcoes}>
-            
+            <View style={estilo.boxBotao}>
+              <Button title="Pular" onPress={criarQuestao} color="#e53b62"/>
+            </View>
 
             <View style={estilo.boxBotao}>
               <Button title="Responder" onPress={responder} color="#a0df52"/>
